@@ -24,17 +24,7 @@ jobs:
           make build_mail
           cat mail.md
 
-      # Step 3: Read the content of mail.md and store it in an environment variable.
-      - name: Read email body from markdown file
-        id: get-email-body
-        run: |
-          echo "body=$(cat mail.md)" >> $GITHUB_ENV
-          echo $(cat mail.md)
-
-      - name: Test
-        run: echo $body
-
-      # Step 4: Send the email.
+      # Step 3: Send the email.
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
@@ -43,7 +33,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }} # Don't use regular password. Use app password. Create app password here 'https://myaccount.google.com/apppasswords' on the email addresss 'obsidiangithub@gmail.com'.
           subject: Daily Obsidian Note
-          html_body: $body
+          html_body: file://mail.md
           from: Obsidian Reminder
           to: ${{ secrets.RECIPIENT_EMAIL }}
           secure: true  # Set to 'true' for SSL/TLS
