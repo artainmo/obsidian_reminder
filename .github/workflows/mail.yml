@@ -21,7 +21,7 @@ jobs:
       # Step 2: Create the mail via a makefile command
       - name: Create the mail
         run: |
-          make create_mail
+          make build_mail
           cat mail.md
 
       # Step 3: Read email body from markdown file
