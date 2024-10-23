@@ -1,0 +1,35 @@
+name: Send Mail
+
+on: 
+  workflow_dispatch: # This allows manual execution of the workflow.
+  schedule:
+    - cron: "0 0 * * *"  # Runs every day at midnight UTC.
+
+jobs:
+  send_email_job:
+    runs-on: ubuntu-latest # Ubuntu is generally faster and more cost-efficient for GitHub to run, making it the default choice. For most projects, Linux (Ubuntu) will work just fine even if developed on macOS.
+
+    steps:
+      # Step 1: Download the GitHub repository’s source code to the runner (the virtual machine where the action is being executed). Without this step, the subsequent steps wouldn't have access to the repository's code.
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # This will initialize and update submodules.
+          fetch-depth: 0 # Ensures that all commit history is fetched. Sometimes, a shallow clone can cause issues with submodules, so this ensures that full commit history is available for both the main repository and submodules.
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Use personal access token, to enable private repository access, created in 'developer settings' and referenced in 'secrets and variables' of this repository.
+
+      # Step 2: Send the email.
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: GitHub Actions Email Test
+          body: "This email was sent from a GitHub Actions workflow!"
+          from: Obsidian Reminder
+          to: ${{ secrets.RECIPIENT_EMAIL }}
+          secure: true  # Set to 'true' for SSL/TLS
+          # Optional converting Markdown to HTML (set content_type to text/html too):
+          #convert_markdown: true
