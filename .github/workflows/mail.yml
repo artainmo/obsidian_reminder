@@ -18,7 +18,21 @@ jobs:
           fetch-depth: 0 # Ensures that all commit history is fetched. Sometimes, a shallow clone can cause issues with submodules, so this ensures that full commit history is available for both the main repository and submodules.
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Use personal access token, to enable private repository access, created in 'developer settings' and referenced in 'secrets and variables' of this repository.
 
-      # Step 2: Send the email.
+      # Step 2: Create the mail via a makefile command
+      - name: Create the mail
+        run: |
+          make create_mail
+          cat mail.md
+
+      # Step 3: Read email body from markdown file
+      - name: Read email body from markdown file
+        id: get-email-body
+        run: |
+          # Read the content of email-body.md and store it in an output variable
+          mail=$(cat mail.md)
+          echo "body=$body" >> $GITHUB_ENV
+
+      # Step 4: Send the email.
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
@@ -27,10 +41,7 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }} # Don't use regular password. Use app password. Create app password here 'https://myaccount.google.com/apppasswords' on the email addresss 'obsidiangithub@gmail.com'.
           subject: Daily Obsidian Note
-          html_body: |
-            ### This email was sent from a GitHub Actions workflow!
-            **ddd**
-            dwdwd
+          html_body: ${{ env.body }}
           from: Obsidian Reminder
           to: ${{ secrets.RECIPIENT_EMAIL }}
           secure: true  # Set to 'true' for SSL/TLS
