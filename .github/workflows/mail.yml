@@ -25,11 +25,15 @@ jobs:
           server_address: ${{ secrets.SMTP_HOST }}
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: GitHub Actions Email Test
-          body: "This email was sent from a GitHub Actions workflow!"
+          password: ${{ secrets.EMAIL_PASSWORD }} # Don't use regular password. Use app password. Create app password here 'https://myaccount.google.com/apppasswords'
+          subject: Daily Obsidian Note
+          body: |
+            ### This email was sent from a GitHub Actions workflow!
+            **ddd**
+            dwdwd
           from: Obsidian Reminder
           to: ${{ secrets.RECIPIENT_EMAIL }}
           secure: true  # Set to 'true' for SSL/TLS
           # Optional converting Markdown to HTML (set content_type to text/html too):
-          #convert_markdown: true
+          convert_markdown: true
+          content_type: text/html
