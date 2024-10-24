@@ -1,3 +1,23 @@
 # obsidian-html config file
 # Use full path or relative path, but don't use ~/
 obsidian_entrypoint_path_str: 'mail.md'
+navbar_links: []  
+toggles:
+  features:
+    styling:
+      layout: minimal # documentation, tabs, minimal
+    table_of_contents:
+      add_toc_when_missing: False    # add "[TOC]" (Table of Contents) when missing
+      only_show_for_multiple_headers: True   # if there is only one header, don't show the TOC
+    graph:
+      enabled: False          # Include code to build the graph view per page (default: True)
+    create_index_from_tags:
+      enabled: False
+    create_index_from_dir_structure:
+      enabled: False
+    backlinks:
+      enabled: False
+    tags_page:
+      enabled: False
+    embedded_note_titles:
+      enabled: False
