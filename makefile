@@ -8,7 +8,7 @@ build_mail:
 	echo "\n\n-----------------------" >> obsidian-html/mail.md
 	cp -R Obsidian/Obsidian/.obsidian obsidian-html
 	cd obsidian-html && python -m obsidianhtml convert -i config.yml
-	cp obsidian-html/output/html/index.html mail.html
+	cp obsidian-html/output/md/index.md mail.md
 	cd obsidian-html && rm -rf .obsidian mail.md output
 
 update: # update obsidian to have latest notes
