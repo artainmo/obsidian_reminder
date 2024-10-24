@@ -1,0 +1,3 @@
+# obsidian-html config file
+# Use full path or relative path, but don't use ~/
+obsidian_entrypoint_path_str: 'mail.md'
