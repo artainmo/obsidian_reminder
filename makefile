@@ -18,4 +18,4 @@ update: # update obsidian to have latest notes
 	git commit -m "Automatically update submodule to latest versions"
 	git push
 
-.PHONY: update
+.PHONY: update build_mail
