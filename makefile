@@ -1,9 +1,5 @@
 build_mail:
-	ls
-	ls Obsidian
-	ls Obsidian/Obsidian
-	files=$$(grep -L "#from-github" Obsidian/Obsidian/*.md) && \ 
-	path=$$(echo "$$files" | shuf -n 1) && \
+	path=$$(grep -L "#from-github" Obsidian/Obsidian/*.md | shuf -n 1) && \
 	file_name=$$(echo "$$path" | cut -c 19- | rev | cut -c 4- | rev) && \
 	echo "This mail stems from the [obsidian_reminder](https://github.com/artainmo/obsidian_reminder) project.\n\n" > obsidian-html/mail.md && \
 	echo "The obsidian note of the day is titled: '$$file_name'. See its contents below.\n\n" >> obsidian-html/mail.md && \
