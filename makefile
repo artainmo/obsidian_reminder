@@ -1,4 +1,7 @@
 build_mail:
+	ls
+	ls Obsidian
+	ls Obsidian/Obsidian
 	files=$$(grep -L "#from-github" Obsidian/Obsidian/*.md) && \ 
 	path=$$(echo "$$files" | shuf -n 1) && \
 	file_name=$$(echo "$$path" | cut -c 19- | rev | cut -c 4- | rev) && \
