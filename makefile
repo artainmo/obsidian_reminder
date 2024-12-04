@@ -1,5 +1,4 @@
 build_mail:
-	grep -L "#from-github" Obsidian/Obsidian/*.md
 	path=$$(grep -L "#from-github" Obsidian/Obsidian/*.md | shuf -n 1) && \
 	file_name=$$(echo "$$path" | cut -c 19- | rev | cut -c 4- | rev) && \
 	echo "This mail stems from the [obsidian_reminder](https://github.com/artainmo/obsidian_reminder) project.\n\n" > obsidian-html/mail.md && \
